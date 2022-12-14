@@ -7,4 +7,9 @@ def index(request):
 
 
 def home(request):
-    return render(request, 'home.html')
+    return render(request, 'home.html', {'greeting': 'Hello'})
+
+
+def reverse(request):
+    user_text = request.GET['usertext']
+    return render(request, 'reverse.html', {'usertext': user_text})
