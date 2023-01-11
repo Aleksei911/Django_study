@@ -1,0 +1,17 @@
+{% extends 'library/base.html' %}
+{% block page_content %}
+<div class="col-md-12 offset-md-1">
+    <h1>{{ author | title }}</h1>
+    <hr>
+    {% for book in books %}
+      <h2><a href="{% url 'book_detail' book.pk %}">{{ book.title }}</a> </h2>
+      <small>
+          Автор:&nbsp;
+          <a href="{% url 'book_author' book.author %}">
+              {{ book.author }}
+          </a>&nbsp;
+      </small>
+      <p>{{ book.description | slice:':150' }}...</p>
+    {% endfor %}
+</div>
+{% endblock %}

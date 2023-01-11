@@ -1,0 +1,57 @@
+{% extends 'library/base.html' %}
+{% load static %}
+
+{% block page_content %}
+<br>
+<h1>{{book.title}}</h1>
+<div class="row">
+    <div class="col-md-6">
+        <img src="{% static book.image %}" alt="" width="50%">
+        <br>
+        <br>
+        <h3>Оставьте комментарий:</h3>
+        <form action="{% url 'book_detail' book.pk %}" method="post">
+            {% csrf_token %}
+            <div class="form-group">
+                {{ form.comment_author }}
+            </div>
+            <div class="form-group">
+                {{ form.body }}
+            </div>
+            <button type="submit" class="btn btn-primary">Отправить</button>
+        </form>
+        <h3>Комментарии:</h3>
+        {% for comment in comments %}
+        <p>
+            On {{ comment.created_on.date }}&nbsp;
+            <b>{{ comment.comment_author }}</b> wrote:
+        </p>
+        <p>{{ comment.body }}</p>
+        <hr>
+        {% endfor %}
+    </div>
+    <div class="col-md-6">
+        <h5>О книге:</h5>
+        <p>{{ book.description }}</p>
+        <br>
+        <h5>Автор:</h5>
+        <p>
+            <a href="{% url 'book_author' book.author %}">
+                {{ book.author }}
+            </a>
+        </p>
+        <h5>Издательство:</h5>
+        <p>{{ book.publishing_house }}</p>
+        <h5>Год издания:</h5>
+        <p>{{ book.year_of_publication }}</p>
+        <h5>Страниц:</h5>
+        <p>{{ book.pages }}</p>
+        <h5>Переплет:</h5>
+        <p>{{ book.binding }}</p>
+        <h5>Вес:</h5>
+        <p>{{ book.weight }}</p>
+        <h5>Возрастные ограничения:</h5>
+        <p>{{ book.age_restrictions }}</p>
+    </div>
+</div>
+{% endblock %}

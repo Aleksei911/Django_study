@@ -1,0 +1,28 @@
+{% extends 'library/base.html' %}
+{% load static %}
+
+{% block page_content %}
+<h1>Мои книги</h1>
+<div class="row">
+    {% for book in books %}
+    <div class="col-md-4">
+        <div class="card mb-2">
+            <img class="card-img-top" src="{% static book.image %}">
+            <div class="card-body">
+                <h5 class="card-title">{{ book.title }}</h5>
+                <small>
+                    Автор:&nbsp;
+                    <a href="{% url 'book_author' book.author %}">
+                        {{ book.author }}
+                    </a>&nbsp;
+                </small>
+                <p class="card-text">{{ book.description | slice:':100' }}...</p>
+                <a href="{% url 'book_detail' book.pk %}" class="btn btn-primary">
+                    Подробнее
+                </a>
+            </div>
+        </div>
+    </div>
+    {% endfor %}
+</div>
+{% endblock %}
